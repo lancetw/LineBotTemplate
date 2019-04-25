@@ -50,8 +50,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.VideoMessage:
 				log.Println("message:", message.ID)
-				log.Println("message:", message.ContentType)
 				content, err := bot.GetMessageContent(message.ID).Do()
+				log.Println(content)
 				if err != nil {
 					log.Println("Content err:", err)
 				}
