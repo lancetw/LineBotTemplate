@@ -49,6 +49,33 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
+			case *linebot.VideoMessage:
+				quota, err := bot.GetMessageQuota().Do()
+				if err != nil {
+					log.Println("Quota err:", err)
+				}
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK! remain message:"+strconv.FormatInt(quota.Value, 10))).Do(); err != nil {
+					log.Print(err)
+				}
+			}
+			case *linebot.ImageMessage:
+				quota, err := bot.GetMessageQuota().Do()
+				if err != nil {
+					log.Println("Quota err:", err)
+				}
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK! remain message:"+strconv.FormatInt(quota.Value, 10))).Do(); err != nil {
+					log.Print(err)
+				}
+			}
+			case *linebot.FileMessage:
+				quota, err := bot.GetMessageQuota().Do()
+				if err != nil {
+					log.Println("Quota err:", err)
+				}
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK! remain message:"+strconv.FormatInt(quota.Value, 10))).Do(); err != nil {
+					log.Print(err)
+				}
+			}
 			case *linebot.TextMessage:
 				quota, err := bot.GetMessageQuota().Do()
 				if err != nil {
