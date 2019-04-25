@@ -49,6 +49,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.VideoMessage:
+				log.Println("message:", message)
 				content, err := bot.GetMessageContent(message.ID).Do()
 				if err != nil {
 					log.Println("Content err:", err)
