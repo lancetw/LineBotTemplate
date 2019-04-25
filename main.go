@@ -51,7 +51,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				
-				content, err := bot.GetMessageContent(9755498668781).Do()
+				content, err := bot.GetMessageContent("9755498668781").Do()
 				if err != nil {
 					log.Println("Content err:", err)
 				}
